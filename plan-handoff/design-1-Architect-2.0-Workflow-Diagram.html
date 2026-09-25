@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Architect 2.0 — Workflow Diagram</title>
+<style>
+:root{
+  --bg:#08090d;
+  --surface:#101217;
+  --surface-2:#151820;
+  --border:#252936;
+  --text:#f6f7fb;
+  --muted:#8b91a1;
+  --purple:#8068f2;
+  --cyan:#42c7e8;
+  --green:#56d6aa;
+  --amber:#e4b66b;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 50% -10%,rgba(103,79,226,.18),transparent 32%),
+    var(--bg);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.page{max-width:1500px;margin:auto;padding:44px 36px 64px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.17em;color:#9d8df8;text-transform:uppercase}
+h1{font-size:34px;letter-spacing:-.04em;margin:8px 0 8px}
+.subtitle{max-width:700px;color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.legend{display:flex;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:11px}
+.key{display:flex;align-items:center;gap:7px}
+.key i{width:8px;height:8px;border-radius:50%;background:var(--purple)}
+.key:nth-child(2) i{background:var(--cyan)}
+.key:nth-child(3) i{background:var(--green)}
+
+.diagram{
+  padding:28px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:
+    radial-gradient(#252936 1px,transparent 1px),
+    rgba(12,14,20,.88);
+  background-size:24px 24px;
+  box-shadow:0 28px 80px rgba(0,0,0,.3);
+}
+.phase-label{
+  margin-bottom:13px;
+  font-size:10px;
+  color:#747b8b;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.flow{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(130px,1fr));
+  gap:24px;
+  align-items:stretch;
+}
+.node{
+  min-height:126px;
+  position:relative;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:linear-gradient(145deg,rgba(22,25,34,.97),rgba(15,17,23,.97));
+  box-shadow:0 14px 28px rgba(0,0,0,.18);
+}
+.node:not(.last)::after{
+  content:"→";
+  position:absolute;
+  z-index:3;
+  right:-19px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#6254a5;
+  font-size:19px;
+}
+.node.accent{border-color:#4a407c;background:linear-gradient(145deg,#1b1731,#10151d)}
+.node.success{border-color:#285648;background:linear-gradient(145deg,#11221e,#10161a)}
+.num{
+  width:25px;height:25px;
+  display:grid;place-items:center;
+  border-radius:8px;
+  background:#211b3d;
+  color:#b8abff;
+  font:700 10px ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.node h2{font-size:12px;margin:13px 0 6px;letter-spacing:.02em}
+.node p{font-size:10px;line-height:1.5;color:var(--muted);margin:0}
+.state{display:flex;align-items:center;gap:6px;margin-top:11px;color:#b7bdc9;font-size:9px}
+.state i{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px rgba(66,199,232,.45)}
+
+.connector{
+  width:1px;height:38px;margin:0 auto;
+  background:linear-gradient(var(--purple),rgba(128,104,242,.12));
+  position:relative;
+}
+.connector::after{content:"↓";position:absolute;bottom:-8px;left:-6px;color:#7765cb}
+
+.review{
+  max-width:650px;
+  margin:0 auto;
+  padding:16px 19px;
+  border:1px solid #4b407b;
+  border-radius:13px;
+  background:linear-gradient(135deg,#1a1730,#11141b);
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:14px;
+  align-items:center;
+}
+.review .icon{
+  width:34px;height:34px;border-radius:10px;
+  display:grid;place-items:center;
+  background:#272049;color:#b7aaff;
+}
+.review h3{font-size:12px;margin:0 0 4px}
+.review p{font-size:10px;color:var(--muted);margin:0}
+.actions{display:flex;gap:7px}
+.btn{padding:7px 9px;border-radius:7px;border:1px solid #34394a;background:#171a22;color:#cdd1db;font-size:9px}
+.btn.primary{border-color:#7965e8;background:#6b55dd;color:white}
+
+.build{
+  margin:0 auto;
+  max-width:1040px;
+  display:grid;
+  grid-template-columns:1fr 1.5fr;
+  gap:18px;
+}
+.progress-card,.workspace-card{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:rgba(16,18,23,.96);
+  padding:17px;
+}
+.card-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title b{font-size:11px}
+.badge{font-size:8px;padding:5px 7px;border:1px solid #3d3567;border-radius:999px;color:#b9aaff;background:#1c1831}
+.task{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:9px;color:#aab0bc}
+.task .done{color:var(--green)}
+.task .active{color:var(--cyan)}
+.bar{height:5px;margin-top:12px;border-radius:10px;background:#222630;overflow:hidden}
+.bar span{display:block;width:74%;height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+
+.workspace-mini{display:grid;grid-template-columns:.7fr 1.2fr 1fr;height:148px;overflow:hidden;border:1px solid #292d39;border-radius:9px;background:#0c0e13}
+.pane{padding:10px;border-right:1px solid #292d39}
+.pane:last-child{border:0;background:#eef0f5;color:#171923}
+.lines i{display:block;height:4px;background:#2b2f3b;border-radius:3px;margin:7px 0}
+.lines i:nth-child(2){width:70%;background:#483f75}
+.lines i:nth-child(3){width:84%}
+.chat{border:1px solid #2b3040;border-radius:7px;padding:8px;font-size:7px;line-height:1.5;color:#aab0bc}
+.preview-stat{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.preview-stat span{background:white;border-radius:3px;padding:6px;font-size:5px}
+.preview-chart{height:60px;background:white;border-radius:4px;margin-top:5px;padding:7px;display:flex;gap:4px;align-items:flex-end}
+.preview-chart i{width:12%;border-radius:2px 2px 0 0;background:#7863e4}
+
+.tools{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:11px;
+}
+.tool{
+  min-height:93px;
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:#101217;
+}
+.tool b{font-size:10px;display:block;margin-bottom:6px}
+.tool p{font-size:8px;color:var(--muted);line-height:1.45;margin:0}
+.tool .return{display:block;margin-top:9px;color:#8f7df2;font-size:8px}
+
+.final-flow{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:24px;
+}
+.final-flow .node{min-height:115px}
+.final-flow .node:nth-child(3){border-color:#564987}
+.final-flow .node:nth-child(5){border-color:#285648}
+
+.global{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.global-item{
+  border:1px dashed #373c4b;
+  border-radius:10px;
+  padding:12px 15px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  background:rgba(16,18,23,.7);
+}
+.global-item kbd{
+  border:1px solid #3a3f4e;
+  background:#181b23;
+  border-radius:6px;
+  padding:5px 7px;
+  font-size:9px;
+  color:#d8dbe3;
+}
+.global-item b{font-size:10px}
+.global-item span{font-size:9px;color:var(--muted);margin-left:auto}
+
+@media(max-width:1050px){
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .node:nth-child(3)::after{display:none}
+  .tools{grid-template-columns:repeat(3,1fr)}
+  .final-flow{grid-template-columns:repeat(3,1fr)}
+  .final-flow .node:nth-child(3)::after{display:none}
+}
+@media(max-width:700px){
+  .page{padding:24px 16px}
+  header{display:block}.legend{margin-top:18px}
+  .diagram{padding:17px}
+  .flow,.final-flow,.tools,.build,.global{grid-template-columns:1fr}
+  .node::after{content:"↓"!important;right:auto!important;top:auto!important;left:50%;bottom:-22px}
+  .review{grid-template-columns:auto 1fr}.actions{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <div>
+      <div class="eyebrow">Architect 2.0 · Product Workflow</div>
+      <h1>From idea to production</h1>
+      <p class="subtitle">The flagship demo follows one continuous creation journey. Architect pauses at key decisions so users can understand, inspect, and control what happens next.</p>
+    </div>
+    <div class="legend">
+      <span class="key"><i></i> User decision</span>
+      <span class="key"><i></i> Simulated AI work</span>
+      <span class="key"><i></i> Successful outcome</span>
+    </div>
+  </header>
+
+  <section class="diagram">
+    <div class="phase-label">01 · Discover and define</div>
+    <div class="flow">
+      <article class="node">
+        <div class="num">01</div>
+        <h2>Landing</h2>
+        <p>Understand the idea-to-production proposition.</p>
+        <div class="state"><i></i> Start Building</div>
+      </article>
+      <article class="node">
+        <div class="num">02</div>
+        <h2>Demo Login</h2>
+        <p>Choose GitHub, Google, or email. Authentication is simulated.</p>
+        <div class="state"><i></i> Enter app</div>
+      </article>
+      <article class="node">
+        <div class="num">03</div>
+        <h2>Describe Idea</h2>
+        <p>Use the prefilled Expense Intelligence product prompt.</p>
+        <div class="state"><i></i> Product intent</div>
+      </article>
+      <article class="node accent">
+        <div class="num">04</div>
+        <h2>Choose Control</h2>
+        <p>Select “Build with me” to review technical decisions.</p>
+        <div class="state"><i></i> User decision</div>
+      </article>
+      <article class="node">
+        <div class="num">05</div>
+        <h2>Understand Idea</h2>
+        <p>Architect analyzes users, workflows, and required capabilities.</p>
+        <div class="state"><i></i> Simulated analysis</div>
+      </article>
+      <article class="node last">
+        <div class="num">06</div>
+        <h2>Review Requirements</h2>
+        <p>Inspect Architect’s interpretation before system design begins.</p>
+        <div class="state"><i></i> Transparent output</div>
+      </article>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="review">
+      <div class="icon">◇</div>
+      <div>
+        <h3>Are the requirements correct?</h3>
+        <p>The user remains in control before Architect commits to an architecture.</p>
+      </div>
+      <div class="actions">
+        <button class="btn">Edit requirements ↩</button>
+        <button class="btn primary">Looks good →</button>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="phase-label">02 · Design and build</div>
+    <div class="build">
+      <article class="progress-card">
+        <div class="card-title"><b>Application Architecture</b><span class="badge">Inspectable</span></div>
+        <div class="task"><span class="done">✓</span> Web application and API gateway</div>
+        <div class="task"><span class="done">✓</span> AI orchestrator</div>
+        <div class="task"><span class="done">✓</span> Four specialized agents</div>
+        <div class="task"><span class="done">✓</span> PostgreSQL and notifications</div>
+        <div class="task"><span class="active">●</span> Open nodes for configuration</div>
+        <div class="bar"><span style="width:100%"></span></div>
+      </article>
+      <article class="workspace-card">
+        <div class="card-title"><b>Accept architecture → Simulated build</b><span class="badge">74%</span></div>
+        <div class="workspace-mini">
+          <div class="pane lines"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="pane">
+            <div class="chat">Building Receipt Agent…<br>Adding validation and confidence handling.</div>
+            <div class="lines"><i></i><i></i><i></i></div>
+          </div>
+          <div class="pane">
+            <div class="preview-stat"><span>Total Spend</span><span>Pending</span><span>Approved</span></div>
+            <div class="preview-chart"><i style="height:36%"></i><i style="height:65%"></i><i style="height:48%"></i><i style="height:90%"></i><i style="height:72%"></i></div>
+          </div>
+        </div>
+        <div class="bar"><span></span></div>
+      </article>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="phase-label">03 · Inspect, modify, and test</div>
+    <div class="flow">
+      <article class="node">
+        <div class="num">07</div>
+        <h2>Project Explorer</h2>
+        <p>Browse agents, components, API routes, and data schema.</p>
+      </article>
+      <article class="node accent">
+        <div class="num">08</div>
+        <h2>Ask Architect</h2>
+        <p>Request monthly spending grouped by category.</p>
+      </article>
+      <article class="node">
+        <div class="num">09</div>
+        <h2>Review Plan</h2>
+        <p>See what Architect understood and which files will change.</p>
+      </article>
+      <article class="node">
+        <div class="num">10</div>
+        <h2>Inspect Diff</h2>
+        <p>Review realistic code changes before applying them.</p>
+      </article>
+      <article class="node">
+        <div class="num">11</div>
+        <h2>Apply Changes</h2>
+        <p>Update the simulated project and confirm completion.</p>
+      </article>
+      <article class="node success last">
+        <div class="num">12</div>
+        <h2>Live Preview</h2>
+        <p>See the category chart update immediately.</p>
+        <div class="state"><i></i> Changes applied</div>
+      </article>
+    </div>
+
+    <div class="tools">
+      <article class="tool">
+        <b>Upload Receipt</b>
+        <p>Analyze the mock Uber receipt, review extracted fields, and add the expense.</p>
+        <span class="return">↩ Returns to live preview</span>
+      </article>
+      <article class="tool">
+        <b>Test Receipt Agent</b>
+        <p>Run OCR → extraction → validation → classification and inspect the output.</p>
+        <span class="return">↩ Returns to Agents</span>
+      </article>
+      <article class="tool">
+        <b>Inspect Data Model</b>
+        <p>Explore users, expenses, receipts, approvals, and notifications.</p>
+        <span class="return">↩ Returns to workspace</span>
+      </article>
+      <article class="tool">
+        <b>Review Integrations</b>
+        <p>Inspect simulated GitHub and marketplace connection states.</p>
+        <span class="return">↩ Returns to workspace</span>
+      </article>
+      <article class="tool">
+        <b>Architecture Review</b>
+        <p>Find missing retry handling and unsafe receipt upload limits.</p>
+        <span class="return">→ Continues to release</span>
+      </article>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="phase-label">04 · Review and release</div>
+    <div class="final-flow">
+      <article class="node">
+        <div class="num">13</div>
+        <h2>Engineering Review</h2>
+        <p>Architect explains risks, severity, and recommendations.</p>
+      </article>
+      <article class="node">
+        <div class="num">14</div>
+        <h2>Apply Fixes</h2>
+        <p>Add exponential backoff and a 10MB upload limit.</p>
+      </article>
+      <article class="node accent">
+        <div class="num">15</div>
+        <h2>Push to GitHub</h2>
+        <p>Push 12 files with the prepared commit message.</p>
+        <div class="state"><i></i> Commit a8f32d1</div>
+      </article>
+      <article class="node">
+        <div class="num">16</div>
+        <h2>Deploy</h2>
+        <p>Run tests, build, provision, and deploy to Mumbai.</p>
+      </article>
+      <article class="node success last">
+        <div class="num">17</div>
+        <h2>Application Live</h2>
+        <p>Open, share, or inspect logs for the production application.</p>
+        <div class="state"><i style="background:var(--green)"></i> Production</div>
+      </article>
+    </div>
+
+    <div class="global">
+      <div class="global-item">
+        <kbd>⌘ K</kbd>
+        <b>Command Palette</b>
+        <span>Navigate and run actions from anywhere</span>
+      </div>
+      <div class="global-item">
+        <kbd>✦</kbd>
+        <b>Ask Architect</b>
+        <span>Receive contextual explanations and next steps</span>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

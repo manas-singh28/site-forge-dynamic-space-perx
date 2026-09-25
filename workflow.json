@@ -1,0 +1,49 @@
+{
+  "nodes": [
+    {
+      "id": "input",
+      "type": "Input",
+      "label": "User Request",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "architect_product_copilot",
+      "type": "Agent",
+      "label": "Architect Product Copilot",
+      "nodeCategory": "agent",
+      "agent_id": "6ab645510a41e423f3726283"
+    },
+    {
+      "id": "output",
+      "type": "Output",
+      "label": "Copilot Guidance",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    {
+      "source": "input",
+      "target": "architect_product_copilot"
+    },
+    {
+      "source": "architect_product_copilot",
+      "target": "output"
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "6ab645510a41e423f3726283",
+      "name": "Architect Product Copilot",
+      "description": "Interprets product requests, explains proposed implementation changes, and provides transparent next-step guidance without external tools.",
+      "agent_role": "A transparent product and engineering copilot embedded throughout Architect 2.0, helping builders understand proposed software changes and decide what to do next.",
+      "agent_goal": "Interpret product-building requests in the Architect 2.0 context, explain the proposed implementation clearly, and provide actionable next-step guidance without making external calls.",
+      "provider_id": "OpenAI",
+      "model": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "top_p": 0.9,
+      "tool_configs": [],
+      "workflow_node_id": "architect_product_copilot",
+      "response_schema": "response_schemas/architect_product_copilot.json"
+    }
+  ]
+}

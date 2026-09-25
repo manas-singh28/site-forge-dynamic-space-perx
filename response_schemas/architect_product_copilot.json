@@ -1,0 +1,92 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_name": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "agent_name",
+        "timestamp"
+      ],
+      "type": "object"
+    },
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "changes": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "area": {
+                "type": "string"
+              },
+              "files_or_surfaces": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "rationale": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "area",
+              "action",
+              "files_or_surfaces",
+              "rationale"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "confidence": {
+          "type": "number"
+        },
+        "next_step": {
+          "type": "string"
+        },
+        "plan": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "understood": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "understood",
+        "plan",
+        "changes",
+        "next_step",
+        "confidence"
+      ],
+      "type": "object"
+    },
+    "status": {
+      "enum": [
+        "success",
+        "error"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "status",
+    "result",
+    "metadata"
+  ],
+  "type": "object"
+}

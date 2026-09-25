@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Architect 2.0 — App Mockup</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;background:#eceef3;color:#111;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .sheet{max-width:1460px;margin:0 auto;padding:30px}.frame{margin:0 0 38px;border:1px solid #c9ccd4;border-radius:18px;overflow:hidden;background:white;box-shadow:0 24px 70px rgba(22,26,38,.12)}
+  .label{height:52px;padding:0 20px;display:flex;align-items:center;background:#fff;color:#444955;border-bottom:1px solid #d9dbe1;font-size:13px;font-weight:700;letter-spacing:.02em}
+  .app{height:820px;background:#08090d;color:#f7f8fb;display:flex;overflow:hidden}.app *{box-sizing:border-box}
+  .sidebar{width:218px;background:#0b0d12;border-right:1px solid #252936;padding:18px 13px;display:flex;flex-direction:column}
+  .brand{height:38px;display:flex;align-items:center;gap:10px;padding:0 8px;font-weight:800;letter-spacing:.12em;font-size:13px}.mark{width:23px;height:23px;border-radius:7px;background:linear-gradient(145deg,#8b5cf6,#3b82f6);display:grid;place-items:center;box-shadow:0 0 24px rgba(124,92,246,.25)}
+  .navtitle{font-size:9px;color:#686f80;letter-spacing:.14em;font-weight:800;margin:21px 9px 8px}.nav{height:35px;border-radius:8px;padding:0 9px;display:flex;align-items:center;gap:10px;color:#9298a7;font-size:12px}.nav.active{background:#171a23;color:#fff}.nav .ico{width:14px;text-align:center}.project{margin:5px 4px 0;padding:11px;border:1px solid #252936;border-radius:10px;background:#101217}.project b{font-size:11px}.project small{display:block;color:#747b8b;margin-top:4px}
+  .sidebottom{margin-top:auto}.avatar{width:25px;height:25px;border-radius:50%;background:linear-gradient(135deg,#4338ca,#22d3ee)}
+  .main{flex:1;min-width:0;display:flex;flex-direction:column}.topbar{height:58px;flex:none;border-bottom:1px solid #252936;display:flex;align-items:center;padding:0 20px;gap:12px;background:rgba(8,9,13,.9)}.topbar h1{font-size:13px;margin:0}.crumb{color:#676e7e;font-size:11px}.spacer{flex:1}
+  .btn{border:1px solid #2a2e3b;background:#151820;color:#d8dbe3;height:32px;padding:0 12px;border-radius:8px;font-size:11px;font-weight:650;display:inline-flex;align-items:center;gap:7px}.btn.primary{background:linear-gradient(135deg,#7657e8,#5268ee);border-color:#836cf0;color:white;box-shadow:0 8px 24px rgba(100,83,229,.18)}.btn.ghost{background:transparent}.live{font-size:10px;color:#82e7c8;display:flex;align-items:center;gap:6px}.dot{width:6px;height:6px;border-radius:50%;background:#47d7ae;box-shadow:0 0 10px rgba(71,215,174,.6)}
+  .content{flex:1;min-height:0}.muted{color:#8b91a1}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#777e90;font-weight:800}.pill{border:1px solid #2b3040;border-radius:999px;padding:5px 8px;color:#9ba2b2;font-size:9px}.pill.purple{border-color:#473d75;background:#1b1730;color:#bcaeff}.check{color:#62d7b2}
+  .progress{height:5px;border-radius:10px;background:#20232d;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#7957eb,#39b9e8)}
+  .ask{position:absolute;right:22px;bottom:20px;padding:10px 13px;border-radius:10px;background:#181b25;border:1px solid #34394a;color:#e8e9ee;font-size:11px;box-shadow:0 15px 36px rgba(0,0,0,.35)}
+
+  /* screen one */
+  .onboard{position:relative;height:100%;display:grid;grid-template-columns:1.03fr .97fr}.promptzone{padding:62px 58px;border-right:1px solid #252936;background:radial-gradient(circle at 30% 10%,rgba(105,80,235,.09),transparent 30%)}
+  .promptzone h2{font-size:34px;letter-spacing:-.04em;margin:11px 0 10px}.promptzone p{font-size:13px;line-height:1.6;max-width:500px}.textarea{margin-top:28px;height:180px;border:1px solid #353a4a;border-radius:14px;background:#101217;padding:18px;font-size:14px;line-height:1.65;color:#e8eaf0;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+  .control-title{font-size:11px;font-weight:700;margin:25px 0 10px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{border:1px solid #292d3a;background:#101217;border-radius:11px;padding:14px}.choice.selected{border-color:#745ee0;background:linear-gradient(135deg,#18152a,#121622)}.choice b{font-size:12px}.choice span{display:block;font-size:10px;color:#7e8493;margin-top:5px;line-height:1.45}.radio{float:right;width:13px;height:13px;border:3px solid #765ee8;border-radius:50%}
+  .prompt-actions{display:flex;margin-top:18px;align-items:center;gap:10px}.examples{font-size:10px;color:#777e8d}
+  .understood{padding:48px 46px;background:#0c0e13}.understood h3{font-size:23px;margin:9px 0 6px}.summary{margin-top:22px;border:1px solid #282c38;border-radius:14px;background:#101217;overflow:hidden}.sumhead{padding:14px 16px;border-bottom:1px solid #252936;display:flex;align-items:center;gap:9px;font-size:11px}.spark{width:24px;height:24px;border-radius:7px;background:#231b43;color:#b8a6ff;display:grid;place-items:center}.section{padding:16px;border-bottom:1px solid #20232c}.section:last-child{border:0}.section h4{font-size:9px;color:#717889;text-transform:uppercase;letter-spacing:.12em;margin:0 0 11px}.tags{display:flex;gap:7px;flex-wrap:wrap}.tag{background:#171a22;border:1px solid #292d38;padding:6px 8px;border-radius:7px;font-size:10px;color:#cad0db}.flows{display:grid;grid-template-columns:1fr 1fr;gap:7px}.flow{font-size:10px;color:#c7cbd4}.flow em{color:#6e7585;font-style:normal;margin-right:7px}.under-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+
+  /* screen two */
+  .canvaswrap{position:relative;height:100%;background-image:radial-gradient(#252936 1px,transparent 1px);background-size:22px 22px;background-color:#090a0f;overflow:hidden}.canvashead{position:absolute;z-index:3;left:27px;top:24px}.canvashead h2{font-size:21px;margin:8px 0 5px}.zoom{position:absolute;left:24px;bottom:22px;display:flex;border:1px solid #2b2f3b;border-radius:8px;overflow:hidden;background:#11131a}.zoom span{padding:7px 10px;border-right:1px solid #2b2f3b;font-size:10px;color:#8f95a4}.zoom span:last-child{border:0}
+  .nodes{position:absolute;left:30px;right:352px;top:112px;bottom:65px}.line{position:absolute;background:linear-gradient(90deg,#473d75,#27667c);height:1px;transform-origin:left center;opacity:.9}.line.v{width:1px;height:50px;background:linear-gradient(#473d75,#27667c)}.node{position:absolute;width:155px;min-height:72px;border:1px solid #303544;border-radius:11px;background:#11141b;padding:11px;box-shadow:0 15px 30px rgba(0,0,0,.22)}.node.selected{border-color:#7963e7;background:linear-gradient(145deg,#17142a,#10151d);box-shadow:0 0 0 1px rgba(121,99,231,.15),0 18px 35px rgba(0,0,0,.3)}.node b{font-size:10px;display:block}.node small{font-size:8px;color:#777e8d;line-height:1.4;display:block;margin-top:4px}.nstatus{position:absolute;right:9px;top:9px;width:5px;height:5px;border-radius:50%;background:#4ed5ac}
+  .drawer{position:absolute;right:0;top:0;width:332px;height:100%;background:#101217;border-left:1px solid #2a2e3b;padding:23px}.drawer-top{display:flex;align-items:center;gap:12px}.agenticon{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#251d47,#142536);border:1px solid #40376c;display:grid;place-items:center;color:#aa9afa}.drawer h3{font-size:16px;margin:0}.drawer p{font-size:10px;line-height:1.55}.meta-block{margin-top:20px}.meta-block h4{font-size:9px;color:#747b8c;text-transform:uppercase;letter-spacing:.12em}.value{border:1px solid #292d39;border-radius:9px;background:#14171e;padding:11px;font-size:10px;color:#d6dae3;margin-top:7px}.toolrow{display:flex;gap:6px;flex-wrap:wrap}.guard{font-size:10px;margin:8px 0;color:#c5cad3}.drawer-actions{position:absolute;bottom:21px;left:23px;right:23px;display:flex;gap:8px}.drawer-actions .btn{flex:1;justify-content:center}
+
+  /* screen three */
+  .workspace{position:relative;height:100%;display:grid;grid-template-columns:214px minmax(390px,1fr) minmax(375px,.92fr);background:#090a0f}.explorer{border-right:1px solid #252936;background:#0d0f14;padding:13px 10px}.panehead{height:31px;display:flex;align-items:center;padding:0 7px;font-size:9px;letter-spacing:.11em;color:#7c8291;font-weight:800}.tree{font-family:"SFMono-Regular",Consolas,monospace;font-size:9px;color:#858c9b;line-height:25px}.tree .folder{color:#c0c5ce}.tree .file{padding-left:30px}.tree .file.active{background:#191c24;color:#cbbfff;border-radius:6px;border-left:2px solid #8067eb}.tree .indent{padding-left:16px}
+  .center{min-width:0;border-right:1px solid #252936;background:#0b0d12}.tabs{height:43px;border-bottom:1px solid #252936;display:flex;align-items:flex-end;padding:0 14px;gap:20px}.tab{height:43px;padding-top:16px;font-size:10px;color:#747b8a}.tab.active{color:#e8eaf0;border-bottom:2px solid #7960e9}.ai{padding:22px}.aititle{display:flex;align-items:center;gap:9px}.aititle h2{font-size:15px;margin:0}.message{margin-top:18px;border-left:2px solid #2c3040;padding-left:13px}.who{font-size:8px;font-weight:800;letter-spacing:.13em;color:#737a8a}.message p{font-size:11px;line-height:1.58;color:#cfd3dc}.message.arch{border-color:#765be3}.proposal{margin-top:17px;border:1px solid #2a2e3a;border-radius:12px;background:#11131a;padding:15px}.proposal h3{font-size:11px;margin:0 0 12px}.change{font-size:10px;padding:6px 0;color:#bdc2cc}.actions{display:flex;gap:8px;margin-top:13px}.diffpreview{margin-top:16px;border:1px solid #252936;border-radius:10px;overflow:hidden;font-family:Consolas,monospace;font-size:8px}.diffhead{padding:8px 10px;background:#151820;color:#7f8594}.minus{background:rgba(180,62,80,.1);color:#e493a0;padding:5px 10px}.plus{background:rgba(48,160,115,.11);color:#83d9b5;padding:5px 10px}
+  .preview{background:#11131a;padding:10px}.browser{height:100%;border:1px solid #292d38;border-radius:11px;overflow:hidden;background:#f6f7fb;color:#161923}.browserbar{height:35px;background:#e9ebf1;border-bottom:1px solid #d8dbe3;display:flex;align-items:center;padding:0 10px;gap:5px}.browserbar i{width:7px;height:7px;border-radius:50%;background:#c5c8d0}.address{margin-left:8px;background:white;border:1px solid #d9dce4;border-radius:5px;height:20px;flex:1;font-size:7px;color:#858995;display:flex;align-items:center;justify-content:center}.productnav{height:46px;background:white;border-bottom:1px solid #e4e6ec;padding:0 16px;display:flex;align-items:center}.productnav b{font-size:10px;color:#242836}.previewbody{padding:20px}.hello{font-size:18px;margin:0}.hello-sub{font-size:9px;color:#7c8291;margin:4px 0 16px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.stat{background:white;border:1px solid #e2e5eb;border-radius:8px;padding:9px}.stat small{font-size:7px;color:#858a97;display:block}.stat b{font-size:12px;display:block;margin-top:4px}.chartbox{margin-top:9px;background:white;border:1px solid #e2e5eb;border-radius:9px;padding:11px;height:172px}.charthead{display:flex}.charthead b{font-size:9px}.bars{height:105px;display:flex;align-items:end;gap:9px;padding:12px 5px 0;border-bottom:1px solid #eceef2}.bar{width:24px;border-radius:4px 4px 0 0;background:linear-gradient(#7256e7,#9b8bef)}.categories{display:flex;gap:11px;font-size:6px;color:#747987;margin-top:7px}.recent{margin-top:9px;background:white;border:1px solid #e2e5eb;border-radius:9px;padding:10px}.recent h4{font-size:9px;margin:0 0 7px}.expense{height:21px;border-top:1px solid #eff0f3;display:flex;align-items:center;font-size:7px}.expense span:last-child{margin-left:auto;font-weight:700}.upload{margin-left:auto;background:#5d49d5;color:white;padding:7px 9px;border-radius:6px;font-size:7px}
+
+  /* screen four */
+  .deploypage{position:relative;height:100%;padding:31px;background:radial-gradient(circle at 80% 15%,rgba(63,87,189,.12),transparent 25%),#090a0f}.journey{display:flex;align-items:center;gap:6px;font-size:8px;color:#6d7483;margin-bottom:25px}.journey b{color:#c5cad3}.deploygrid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;max-width:1050px}.deploypage h2{font-size:24px;margin:8px 0 7px}.reviewcard,.deploycard{border:1px solid #292d39;border-radius:14px;background:#101217;overflow:hidden}.cardhead{padding:17px 18px;border-bottom:1px solid #252936;display:flex;align-items:center}.cardhead h3{font-size:12px;margin:0}.score{margin-left:auto;color:#7fe0be;font-size:10px}.finding{padding:17px 18px;border-bottom:1px solid #22252f}.severity{display:flex;align-items:center;gap:7px;font-size:9px;color:#e6bd75}.severity.low{color:#9fa6b4}.finding h4{font-size:12px;margin:8px 0 5px}.finding p{font-size:10px;color:#858b9a;line-height:1.5;margin:0}.recommend{margin-top:11px;padding:10px;background:#151820;border-radius:8px;font-size:9px;color:#b8bec9;display:flex;align-items:center}.recommend .btn{margin-left:auto;height:26px;font-size:8px}
+  .config{padding:16px 18px}.configrow{height:39px;border-bottom:1px solid #232630;display:flex;align-items:center;font-size:9px}.configrow span{color:#777e8d}.configrow b{margin-left:auto;color:#d8dce4}.deploybtn{margin:15px 18px;width:calc(100% - 36px);justify-content:center;height:37px}.sequence{padding:4px 18px 17px}.seq{height:31px;display:flex;align-items:center;font-size:9px;color:#b8bdc7}.seq span{margin-left:auto;color:#64d7b1}.livecard{margin-top:18px;border:1px solid #31564e;background:linear-gradient(135deg,#101d1b,#11151b);border-radius:12px;padding:17px;display:flex;align-items:center}.successicon{width:35px;height:35px;border-radius:50%;background:#183e35;color:#71deb9;display:grid;place-items:center}.livecard h4{font-size:11px;margin:0 0 5px}.livecard p{font-size:9px;color:#85a99e;margin:0}.liveactions{margin-left:auto;display:flex;gap:6px}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <section class="frame">
+    <header class="label">Screen 1 of 4 · Idea &amp; Requirements · Turn a product prompt into a reviewable shared understanding</header>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand"><span class="mark">A</span> ARCHITECT</div>
+        <div class="navtitle">WORKSPACE</div>
+        <div class="nav active"><span class="ico">⌂</span> Home</div>
+        <div class="nav"><span class="ico">◇</span> Projects</div>
+        <div class="nav"><span class="ico">✦</span> Agents</div>
+        <div class="nav"><span class="ico">▦</span> Templates</div>
+        <div class="nav"><span class="ico">↗</span> Integrations</div>
+        <div class="sidebottom">
+          <div class="nav"><span class="ico">⌘</span> Settings</div>
+          <div class="nav"><span class="avatar"></span> Alex Morgan</div>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="topbar"><span class="crumb">New project</span><div class="spacer"></div><button class="btn ghost">⌘ K</button></div>
+        <div class="content onboard">
+          <div class="promptzone">
+            <div class="eyebrow">Start with an idea</div>
+            <h2>What are you building?</h2>
+            <p class="muted">Describe the outcome. Architect will turn it into requirements, system design, agents, and a working application.</p>
+            <div class="textarea">Build an AI expense management platform where employees can upload receipts, automatically extract information, categorize expenses and submit them for approval.</div>
+            <div class="control-title">How much control do you want?</div>
+            <div class="controls">
+              <div class="choice"><b>Build for me</b><span>Architect handles the technical decisions.</span></div>
+              <div class="choice selected"><span class="radio"></span><b>Build with me</b><span>Review architecture, agents and implementation.</span></div>
+            </div>
+            <div class="prompt-actions"><button class="btn primary">Build Application →</button><span class="examples">Try an example prompt</span></div>
+          </div>
+          <div class="understood">
+            <span class="pill purple">✦ Analysis complete</span>
+            <h3>Here’s what I understood.</h3>
+            <p class="muted">Review the plan before Architect designs your system.</p>
+            <div class="summary">
+              <div class="sumhead"><span class="spark">✦</span><div><b>Expense Intelligence</b><br><span class="muted">AI-assisted expense operations</span></div></div>
+              <div class="section"><h4>Users</h4><div class="tags"><span class="tag">Employee</span><span class="tag">Finance Manager</span><span class="tag">Administrator</span></div></div>
+              <div class="section"><h4>Core workflows</h4><div class="flows">
+                <div class="flow"><em>01</em>Upload receipt</div><div class="flow"><em>02</em>Extract information</div>
+                <div class="flow"><em>03</em>Categorize expense</div><div class="flow"><em>04</em>Submit expense</div>
+                <div class="flow"><em>05</em>Manager approval</div><div class="flow"><em>06</em>Finance review</div>
+              </div></div>
+              <div class="section"><h4>Capabilities</h4><div class="tags"><span class="tag"><span class="check">✓</span> Receipt OCR</span><span class="tag"><span class="check">✓</span> AI categorization</span><span class="tag"><span class="check">✓</span> Audit history</span></div></div>
+            </div>
+            <div class="under-actions"><button class="btn">Edit requirements</button><button class="btn primary">Looks good →</button></div>
+          </div>
+          <div class="ask">✦ Ask Architect</div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <section class="frame">
+    <header class="label">Screen 2 of 4 · Application Architecture · Inspect and approve Architect’s technical decisions</header>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand"><span class="mark">A</span> ARCHITECT</div>
+        <div class="navtitle">CURRENT PROJECT</div>
+        <div class="project"><b>Expense Intelligence</b><small>Build with me</small></div>
+        <div class="navtitle">PROJECT</div>
+        <div class="nav"><span class="ico">◫</span> Overview</div><div class="nav"><span class="ico">⌘</span> Build</div>
+        <div class="nav active"><span class="ico">⌬</span> Architecture</div><div class="nav"><span class="ico">✦</span> Agents</div>
+        <div class="nav"><span class="ico">◉</span> Data</div><div class="nav"><span class="ico">↗</span> Integrations</div><div class="nav"><span class="ico">↑</span> Deployments</div>
+        <div class="sidebottom"><div class="nav"><span class="avatar"></span> Alex Morgan</div></div>
+      </aside>
+      <main class="main">
+        <div class="topbar"><h1>Expense Intelligence</h1><span class="live"><i class="dot"></i> Draft architecture</span><div class="spacer"></div><button class="btn">Share</button><button class="btn primary">Accept Architecture →</button></div>
+        <div class="content canvaswrap">
+          <div class="canvashead"><div class="eyebrow">System design</div><h2>Application Architecture</h2><span class="muted" style="font-size:11px">Architect designed this system from your approved requirements.</span></div>
+          <div class="nodes">
+            <div class="node" style="left:10px;top:185px"><i class="nstatus"></i><b>USER</b><small>Employee, finance manager, administrator</small></div>
+            <div class="line" style="left:165px;top:220px;width:80px"></div>
+            <div class="node" style="left:245px;top:185px"><i class="nstatus"></i><b>WEB APPLICATION</b><small>Next.js responsive application</small></div>
+            <div class="line" style="left:400px;top:220px;width:70px"></div>
+            <div class="node" style="left:470px;top:185px"><i class="nstatus"></i><b>API GATEWAY</b><small>Authentication and request validation</small></div>
+            <div class="line" style="left:625px;top:220px;width:65px"></div>
+            <div class="node" style="left:690px;top:185px"><i class="nstatus"></i><b>AI ORCHESTRATOR</b><small>Routes tasks and enforces policies</small></div>
+            <div class="line v" style="left:766px;top:257px"></div>
+            <div class="node selected" style="left:455px;top:330px"><i class="nstatus"></i><b>RECEIPT AGENT</b><small>Extract structured receipt data</small></div>
+            <div class="node" style="left:620px;top:330px"><i class="nstatus"></i><b>CATEGORIZATION AGENT</b><small>Classify expense categories</small></div>
+            <div class="node" style="left:455px;top:440px"><i class="nstatus"></i><b>APPROVAL AGENT</b><small>Apply approval policies</small></div>
+            <div class="node" style="left:620px;top:440px"><i class="nstatus"></i><b>NOTIFICATION AGENT</b><small>Send workflow updates</small></div>
+            <div class="node" style="left:75px;top:395px"><i class="nstatus"></i><b>POSTGRESQL</b><small>Application records and audit history</small></div>
+            <div class="node" style="left:245px;top:500px"><i class="nstatus"></i><b>NOTIFICATION SERVICE</b><small>Email and in-app notifications</small></div>
+          </div>
+          <div class="zoom"><span>−</span><span>85%</span><span>+</span><span>Fit</span></div>
+          <aside class="drawer">
+            <div class="drawer-top"><div class="agenticon">✦</div><div><h3>Receipt Agent</h3><span class="live"><i class="dot"></i> Configured</span></div></div>
+            <div class="meta-block"><h4>Purpose</h4><p class="muted">Extract structured information from uploaded receipts and validate the result before categorization.</p></div>
+            <div class="meta-block"><h4>Model</h4><div class="value">GPT-5.6 <span style="float:right;color:#71798a">Temperature 0.2</span></div></div>
+            <div class="meta-block"><h4>Tools</h4><div class="toolrow"><span class="tag">OCR</span><span class="tag">Expense Database</span><span class="tag">Validation Service</span></div></div>
+            <div class="meta-block"><h4>Guardrails</h4><div class="guard"><span class="check">✓</span> Structured output</div><div class="guard"><span class="check">✓</span> Confidence threshold</div><div class="guard"><span class="check">✓</span> PII handling</div></div>
+            <div class="drawer-actions"><button class="btn">Configure</button><button class="btn primary">Test Agent</button></div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <section class="frame">
+    <header class="label">Screen 3 of 4 · Main Workspace · Inspect code, collaborate with Architect, and see changes live</header>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand"><span class="mark">A</span> ARCHITECT</div>
+        <div class="navtitle">CURRENT PROJECT</div><div class="project"><b>Expense Intelligence</b><small><span class="check">●</span> Live workspace</small></div>
+        <div class="navtitle">PROJECT</div><div class="nav active"><span class="ico">⌘</span> Build</div><div class="nav"><span class="ico">⌬</span> Architecture</div><div class="nav"><span class="ico">✦</span> Agents</div><div class="nav"><span class="ico">◉</span> Data</div><div class="nav"><span class="ico">↑</span> Deployments</div>
+        <div class="sidebottom"><div class="nav"><span class="avatar"></span> Alex Morgan</div></div>
+      </aside>
+      <main class="main">
+        <div class="topbar"><h1>Expense Intelligence</h1><span class="live"><i class="dot"></i> Live</span><div class="spacer"></div><button class="btn">Share</button><button class="btn">◇ GitHub</button><button class="btn primary">↑ Deploy</button></div>
+        <div class="content workspace">
+          <aside class="explorer">
+            <div class="panehead">PROJECT EXPLORER</div>
+            <div class="tree"><div class="folder">⌄ expense-intelligence</div><div class="folder indent">⌄ src</div><div class="folder indent">　⌄ agents</div>
+              <div class="file">ReceiptAgent.ts</div><div class="file">CategorizationAgent.ts</div><div class="file">ApprovalAgent.ts</div>
+              <div class="folder indent">　⌄ components</div><div class="file active">Dashboard.tsx</div><div class="file">ExpenseCard.tsx</div><div class="file">UploadReceipt.tsx</div>
+              <div class="folder indent">　⌄ api</div><div class="file">expenses.ts</div><div class="folder indent">　⌄ database</div><div class="file">schema.ts</div><div class="folder indent">　› config</div>
+            </div>
+          </aside>
+          <section class="center">
+            <div class="tabs"><span class="tab">Code</span><span class="tab active">AI</span><span class="tab">Architecture</span><span class="tab">Diff <span class="pill">3</span></span></div>
+            <div class="ai">
+              <div class="aititle"><span class="spark">✦</span><div><h2>Architect AI</h2><span class="live"><i class="dot"></i> Context aware</span></div></div>
+              <div class="message"><div class="who">YOU</div><p>Change the dashboard to show monthly spending by category.</p></div>
+              <div class="message arch"><div class="who" style="color:#a995ff">ARCHITECT</div><p>I found the dashboard visualization and expense aggregation query. I can update both while preserving the existing data model.</p></div>
+              <div class="proposal"><h3>Proposed changes</h3><div class="change"><span class="check">✓</span> Update monthly aggregation</div><div class="change"><span class="check">✓</span> Add category grouping</div><div class="change"><span class="check">✓</span> Replace chart component</div>
+                <div class="actions"><button class="btn primary">Apply changes</button><button class="btn">Review diff</button><button class="btn ghost">Cancel</button></div>
+              </div>
+              <div class="diffpreview"><div class="diffhead">src/components/Dashboard.tsx</div><div class="minus">− const data = await getMonthlySpend()</div><div class="plus">+ const data = await getMonthlySpendByCategory()</div><div class="plus">+ &lt;CategorySpendChart data={data} /&gt;</div></div>
+            </div>
+          </section>
+          <aside class="preview">
+            <div class="browser">
+              <div class="browserbar"><i></i><i></i><i></i><div class="address">expense-intelligence.local</div></div>
+              <div class="productnav"><b>Expense Intelligence</b><span class="upload">+ Upload Receipt</span></div>
+              <div class="previewbody">
+                <h3 class="hello">Good morning, Alex</h3><p class="hello-sub">Here’s your company spending overview.</p>
+                <div class="stats"><div class="stat"><small>Total Spend</small><b>₹24,530</b></div><div class="stat"><small>Pending</small><b>₹8,240</b></div><div class="stat"><small>Approved</small><b>₹16,290</b></div></div>
+                <div class="chartbox"><div class="charthead"><b>Monthly spending by category</b><span style="margin-left:auto;font-size:7px;color:#777">Last 6 months⌄</span></div><div class="bars"><span class="bar" style="height:37px"></span><span class="bar" style="height:62px;background:linear-gradient(#35b8d3,#77d4e7)"></span><span class="bar" style="height:47px"></span><span class="bar" style="height:91px;background:linear-gradient(#35b8d3,#77d4e7)"></span><span class="bar" style="height:72px"></span><span class="bar" style="height:101px"></span></div><div class="categories"><span>Travel</span><span>Food</span><span>Software</span><span>Accommodation</span></div></div>
+                <div class="recent"><h4>Recent expenses</h4><div class="expense"><span>Uber</span><span>₹842</span></div><div class="expense"><span>AWS</span><span>₹12,420</span></div><div class="expense"><span>Air India</span><span>₹8,230</span></div><div class="expense"><span>Amazon</span><span>₹3,240</span></div><div class="expense"><span>Taj Hotels</span><span>₹14,200</span></div></div>
+              </div>
+            </div>
+          </aside>
+          <div class="ask">✦ Ask Architect</div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <section class="frame">
+    <header class="label">Screen 4 of 4 · Architecture Review &amp; Deployment · Resolve engineering risks before going live</header>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand"><span class="mark">A</span> ARCHITECT</div>
+        <div class="navtitle">CURRENT PROJECT</div><div class="project"><b>Expense Intelligence</b><small>Ready to deploy</small></div>
+        <div class="navtitle">PROJECT</div><div class="nav"><span class="ico">◫</span> Overview</div><div class="nav"><span class="ico">⌘</span> Build</div><div class="nav"><span class="ico">⌬</span> Architecture</div><div class="nav"><span class="ico">✦</span> Agents</div><div class="nav active"><span class="ico">↑</span> Deployments</div>
+        <div class="sidebottom"><div class="nav"><span class="avatar"></span> Alex Morgan</div></div>
+      </aside>
+      <main class="main">
+        <div class="topbar"><h1>Expense Intelligence</h1><span class="live"><i class="dot"></i> All changes saved</span><div class="spacer"></div><button class="btn">◇ GitHub connected</button><button class="btn ghost">⌘ K</button></div>
+        <div class="content deploypage">
+          <div class="journey"><span>Idea</span> → <span>Requirements</span> → <span>Architecture</span> → <span>Build</span> → <b>Deploy</b></div>
+          <div class="eyebrow">Production readiness</div><h2>Deploy your application</h2><p class="muted" style="font-size:11px;margin-bottom:24px">Architect reviewed your system before production.</p>
+          <div class="deploygrid">
+            <section class="reviewcard">
+              <div class="cardhead"><h3>Architecture Review</h3><span class="score">8 checks passed</span></div>
+              <div class="finding"><div class="severity">▲ MEDIUM</div><h4>Missing AI retry policy</h4><p>AI requests do not currently have a retry strategy.</p><div class="recommend"><span><b>Recommendation</b><br>Add exponential backoff.</span><button class="btn primary">Apply recommendation</button></div></div>
+              <div class="finding"><div class="severity low">○ LOW</div><h4>Receipt upload size</h4><p>Receipt uploads should have a maximum file size.</p><div class="recommend"><span><b>Recommendation</b><br>Limit uploads to 10MB.</span><button class="btn">Apply</button></div></div>
+              <div class="finding"><div class="severity low" style="color:#66d7b3">✓ RESOLVED</div><h4>Authentication boundaries</h4><p>Protected application routes require a valid user session.</p></div>
+            </section>
+            <section>
+              <div class="deploycard">
+                <div class="cardhead"><h3>Production configuration</h3><span class="pill purple">Ready</span></div>
+                <div class="config"><div class="configrow"><span>Environment</span><b>Production</b></div><div class="configrow"><span>Framework</span><b>Next.js</b></div><div class="configrow"><span>Database</span><b>PostgreSQL</b></div><div class="configrow"><span>Region</span><b>Mumbai</b></div><div class="configrow"><span>Domain</span><b>expense-intelligence.architect.app</b></div></div>
+                <button class="btn primary deploybtn">Deploy application →</button>
+                <div class="sequence"><div class="seq">Preparing build <span>✓</span></div><div class="seq">Installing dependencies <span>✓</span></div><div class="seq">Running tests <span>✓</span></div><div class="seq">Building application <span>✓</span></div><div class="seq">Provisioning environment <span>✓</span></div><div class="seq">Deploying <span>✓</span></div></div>
+              </div>
+              <div class="livecard"><div class="successicon">✓</div><div style="margin-left:11px"><h4>Your application is live.</h4><p>expense-intelligence.architect.app</p></div><div class="liveactions"><button class="btn">View Logs</button><button class="btn primary">Open Application ↗</button></div></div>
+            </section>
+          </div>
+          <div class="ask">✦ Ask Architect</div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
